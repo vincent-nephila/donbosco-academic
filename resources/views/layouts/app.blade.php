@@ -4,24 +4,24 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta author="Roy Plomantes">
-    <meta poweredby = "Nephila Web Technology, Inc">
+        <meta author="Roy Plomantes">
+        <meta poweredby = "Nephila Web Technology, Inc">
         
-    @if (Auth::guest())
+        @if (Auth::guest())
         <title>Don Bosco Technical Institute of Makati, Inc.</title>
-    @else
-       <title>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} - Don Bosco Technical Institute</title>
-    @endif
+        @else
+	<title>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} - Don Bosco Technical Institute</title>
+        @endif
         
 	<link href="{{ asset('bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
-    <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+            
+        <script src="{{asset('/js/jquery.js')}}"></script>
+        <script src="{{asset('bootstrap/dist/js/bootstrap.js')}}"></script>
         
-    <script src="{{asset('/js/jquery.js')}}"></script>
-    <script src="{{asset('bootstrap/dist/js/bootstrap.js')}}"></script>
-        
-</head>
+        </head>
 <body> 
 <div class= "container-fluid no-print" >
     <div class="col-md-12">

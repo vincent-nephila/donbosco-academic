@@ -20,13 +20,13 @@
         @if($sem==1)
         <td style="text-align: center">
             @if($grade->first_grading != 0)
-            {{$grade->first_grading}}
+            {{round($grade->first_grading,2)}}
             @endif
         </td>
         <td style="text-align: center">
             @if($grade->second_grading != 0)
-            {{$grade->second_grading}}
-            @endif
+            {{round($grade->second_grading,2)}}
+	    @endif
         </td>
         @elseif($sem==2)
         <td style="text-align: center">

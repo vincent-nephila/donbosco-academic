@@ -103,7 +103,7 @@ class ConductController extends Controller
         $sy = \App\CtrSchoolYear::first()->schoolyear;
         $quarter = \App\CtrQuarter::first()->qtrperiod;
         $hasconduct = \App\GradesStatus::where('level',$level)->where('section',$section)->where('gradetype',3)->where('schoolyear',$sy)->where('quarter',$quarter)->first();    
-        
+    
         if(count($hasconduct)>0){
                 $hasconduct->status = 0;
                 $hasconduct->in_apsa = "0000-00-00";

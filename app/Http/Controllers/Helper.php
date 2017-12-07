@@ -58,12 +58,16 @@ class Helper extends Controller
         
         if(($access == env('USER_ELEM_ACAD') || $access == env('USER_ELEM_ACAD')) && in_array($department,array('Kindergarten','Elementary'))){
             $subjects = DB::Select("Select distinct subjectcode,subjectname,semester from  grades g join $table s on g.idno = s.idno and g.schoolyear = s.schoolyear where s.level = '$level' and s.schoolyear = $sy and subjecttype IN(0) and isdisplaycard = 1 order by subjecttype,sortto");
-        }elseif(($access == env('USER_JHS_APSA') || $access == env('USER_HS_ACAD')) && in_array($department,array('Junior High School'))){
+        }elseif(($access == env('USER_HS_APSA') || $access == env('USER_HS_ACAD')) && in_array($department,array('Junior High School'))){
             $subjects = DB::Select("Select distinct subjectcode,subjectname,semester from  grades g join $table s on g.idno = s.idno and g.schoolyear = s.schoolyear where s.level = '$level' and s.schoolyear = $sy and subjecttype IN(0) and isdisplaycard = 1 order by subjecttype,sortto");
         }elseif($access == env('USER_SHS_APSA') || $access == env('USER_SHS_ACAD')){
             $subjects = DB::Select("Select distinct subjectcode,subjectname,semester from  grades g join $table s on g.idno = s.idno and g.schoolyear = s.schoolyear where s.level = '$level' and s.schoolyear = $sy and s.strand = '$course' and subjectcode NOT LIKE 'ELE%' and isdisplaycard = 1 order by subjecttype,sortto");
         }elseif($access == env('USER_TECH')){
             $subjects = DB::Select("Select distinct subjectcode,subjectname,semester from  grades g join $table s on g.idno = s.idno and g.schoolyear = s.schoolyear where s.level = '$level' and s.schoolyear = $sy and subjecttype IN(1) and isdisplaycard = 1 order by subjecttype,sortto");
+	    if(count($subjects) ==0){
+	         $subjects = DB::Select("Select distinct subjectcode,subjectname,semester from  grades g join $table s on g.idno = s.idno and g.schoolyear = s.schoolyear where s.level = '$level' and s.schoolyear = $sy and subjectcode LIKE 'ELE%' and s.strand = '$course' and isdisplaycard = 1 and semester= 1 and s.status = 2 order by subjecttype,sortto");
+	    }
+
         }else{
             $subjects = \App\CtrLevel::where('department','')->get();
         }

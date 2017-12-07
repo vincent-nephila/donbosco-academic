@@ -12,6 +12,10 @@ use Excel;
 
 class SubmitGrade extends Controller
 {
+
+    public function __construct(){
+	$this->middleware('auth');
+	}
     function index(){
         $levels = mainHelper::getLevels();
 
@@ -70,7 +74,7 @@ class SubmitGrade extends Controller
         $repo->idno = $idno;
         $repo->subjectcode = $subjcode;
         $repo->grade = $grade;
-        $repo->qtrperiod = 1;
+        $repo->qtrperiod = 2;
         $repo->schoolyear = $sy;
         $repo->save();
                 
