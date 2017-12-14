@@ -36,7 +36,9 @@
                         </ul>
                     </li>
                     @endif
+                    @if(Auth::user()->accesslevel == env('USER_ELEM_ACAD')||Auth::user()->accesslevel == env('USER_HS_ACAD')||Auth::user()->accesslevel == env('USER_SHS_ACAD'))
                     <li><a href="/importgrade">Import Grades</a></li>
+                    @endif
                     
                     @if(Auth::user()->accesslevel == env('USER_TEACHER'))
                     <?php

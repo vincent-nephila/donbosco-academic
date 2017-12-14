@@ -247,4 +247,18 @@ class Helper extends Controller
         
         return $teacher;
     }
+    
+    static function shortLevel($level){
+        $short = "";
+        switch($level){
+            case 'Kindergarten':
+                $short = "K";
+                break;
+            default:
+                $short = str_replace("Grade ","",$level);
+                break;
+        }
+        
+        return $short;
+    }
 }

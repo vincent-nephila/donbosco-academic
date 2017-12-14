@@ -23,14 +23,15 @@
 {!! csrf_field() !!} 
     <table class="table table-bordered" style="font-size: 11px">
         <tr style="text-align: center">
-            <td>CLASS NO</td>
-            <td>NAME</td>
+            <td width="5%">CLASS NO</td>
+            <td  width="10%">NAME</td>
+            <?php $width = 85/(count($conducts)*2)?>
             @foreach($conducts as $conduct)
-            <td>{{strtoupper($conduct->subjectname)}}
+            <td width="{{$width}}%">{{strtoupper($conduct->subjectname)}}
                 <br>
                 <p style="text-align: center">({{$conduct->points}})</p>
             </td>
-            <td>Remarks</td>
+            <td width="{{$width}}%">Remarks</td>
             @endforeach
         </tr>
         @foreach($students as $student)
@@ -41,7 +42,7 @@
             @foreach($conducts as $conduct)
                 <?php $currgrade = Helper::quarterSubjectGrade($quarter,$conduct->subjectcode,$student->idno); ?>
                 <td>
-                    <input type="number" class="form-control serial" name="conduct[{{$student->idno}}][{{$conduct->subjectcode}}][grade]" min="0" max="{{$conduct->points}}"  value="{{$currgrade[0]}}" limit-to-max/>
+                    <input type="number" class="form-control serial conduct" name="conduct[{{$student->idno}}][{{$conduct->subjectcode}}][grade]" min="0" max="{{$conduct->points}}"  value="{{$currgrade[0]}}" limit-to-max/>
                 </td>
                 <td>
                     <textarea  class="form-control serial" name="conduct[{{$student->idno}}][{{$conduct->subjectcode}}][remarks]"  value="{{$currgrade[1]}}" limit-to-max/>{{$currgrade[1]}}</textarea>
@@ -53,6 +54,14 @@
 </form>
 <script>
 
+$('.conduct').keyup(function(){
+    var value = parseInt($(this).val());
+    var max = parseInt($(this).attr('max'));
+    
+    if(value > max){
+        $(this).val(max)
+    }
+});
     
 $('.serial').keydown(function(e) {
     if (e.which == 13) {

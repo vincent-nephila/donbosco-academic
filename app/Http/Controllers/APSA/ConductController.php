@@ -12,10 +12,11 @@ class ConductController extends Controller
     public function index($level,$section){
         $quarter = \App\CtrQuarter::first()->qtrperiod;
         $sy = \App\CtrSchoolYear::first()->schoolyear;
+        
         $students = \App\Status::where('level',$level)->where('section',$section)->where('status',2)->orderBy('class_no')->get();
         $conducts = DB::Select("Select subjectname,subjectcode,points from grades where subjecttype = 3 AND level='$level' AND schoolyear = $sy GROUP BY subjectcode ORDER BY sortto");
         $hasconduct = \App\GradesStatus::where('level',$level)->where('section',$section)->where('gradetype',3)->where('schoolyear',$sy)->where('quarter',$quarter)->first();
-        if(count($hasconduct)>0){
+        if($hasconduct){
             if($hasconduct->status == 0){
                 return view('teacher.conduct.editconduct',compact('students','conducts','level','section','quarter'));
             }else{

@@ -1,3 +1,6 @@
+<?php
+use App\Http\Controllers\Helper as MainHelper;
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -62,7 +65,10 @@
         </nav>
         <?php
             $sy = \App\CtrSchoolYear::first()->schoolyear;
+            
             $homerooms = \App\CtrSection::where('schoolyear',$sy)->where('adviserid',\Auth::user()->idno)->get();
+            $subjectAdvisers = App\CtrSubjectTeacher::join('ctr_levels', 'ctr_levels.level', '=', 'ctr_subject_teachers.level')->join('ctr_section_details', 'ctr_section_details.section', '=', 'ctr_subject_teachers.section')->where('instructorid',\Auth::user()->idno)->where('schoolyear',$sy)->orderBy('ctr_levels.id','ASC')->orderBy('ctr_section_details.order','ASC')->orderBy('subjcode','ASC')->get();
+            
         ?>
         <div class="container_fluid">
             <div class="col-md-3">
@@ -70,9 +76,15 @@
                 <div>
                     <h4><div class="col-md-12 label label-default no-round">{{$homeroom->level}} @if($homeroom->strand != "")({{$homeroom->strand}})@endif <br> {{$homeroom->section}}</div></h4>
                     <h5><a href="{{url('classconduct',array($homeroom->level,$homeroom->section))}}" class="col-md-12 btn btn-default no-round">Conduct</a></h5>
-                    <h5><a href="{{url('classattendance')}}" class="col-md-12 btn btn-default no-round">Attendance</a></h5>
                 </div>
                 @endforeach
+                <div><h4>&nbsp;</h4></div>
+                <div>
+                    <h4><div class="col-md-12 label label-default no-round">SUBJECTS</div></h4>
+                @foreach($subjectAdvisers as $subjectAdvisers)
+                <h5><a href="#" class="col-md-12 btn btn-default no-round"  style="text-align: left">{{MainHelper::shortLevel($subjectAdvisers->level)}} - {{$subjectAdvisers->section}}<span class="label label-default control-label pull-right">{{$subjectAdvisers->subjcode}}</span></a></h5>
+                @endforeach
+                </div>
             </div>
             
             <div class="col-md-9">

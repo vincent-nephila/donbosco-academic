@@ -5,16 +5,17 @@
 <h3>{{$level}} - {{$section}}</h3>
 <h4>Quarter:{{$quarter}}</h4>    
 </div>
-    <table class="table table-bordered" style="font-size: 11px">
+    <table class="table table-bordered" style="font-size: 10px" cellpadding="">
         <tr style="text-align: center">
-            <td>CLASS NO</td>
-            <td>NAME</td>
+            <td width="5%">CLASS NO</td>
+            <td  width="10%">NAME</td>
+            <?php $width = 86/(count($conducts)*2)?>
             @foreach($conducts as $conduct)
-            <td>{{strtoupper($conduct->subjectname)}}
+            <td width="{{$width}}%">{{strtoupper($conduct->subjectname)}}
                 <br>
                 <p style="text-align: center">({{$conduct->points}})</p>
             </td>
-            <td width='10%'>Remarks</td>
+            <td width="{{$width}}%">Remarks</td>
             @endforeach
         </tr>
         @foreach($students as $student)
